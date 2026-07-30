@@ -44,22 +44,23 @@ export default function ResetPassword() {
 
   if (!ready) {
     return (
-      <div className="w-full h-screen flex items-center justify-center">
+      <div className="w-full min-h-screen flex items-center justify-center px-4">
         <p className="text-gray-500">جاري التحقق من الرابط...</p>
       </div>
     )
   }
 
   return (
-    <div className="relative w-full h-screen flex flex-col items-center justify-center">
+    <div className="relative w-full min-h-screen flex flex-col items-center justify-center py-10 px-4">
       <Image src={"/assets/SignIn.png"} alt="sign in panner" fill className="object-cover -z-1"/>
       <Image src={"/assets/logo.svg"} alt="sign in panner" width={110} height={120} />
-      <Card className="py-6 px-2 flex items-center justify-center mt-5">
+
+      <Card className="py-6 px-2 flex items-center justify-center mt-5 w-full max-w-md">
         <CardTitle className="text-[25px] font-extrabold mb-5">تعيين كلمة مرور جديدة</CardTitle>
-        <CardContent>
+        <CardContent className="w-full">
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <FormInput control={form.control} name="password" label="كلمة المرور الجديدة" />
-            <FormInput control={form.control} name="confirmPassword" label="تأكيد كلمة المرور" />
+            <FormInput control={form.control} name="password" label="كلمة المرور الجديدة" type="password"/>
+            <FormInput control={form.control} name="confirmPassword" label="تأكيد كلمة المرور" type="password"/>
 
             {error && <p className="text-red-500 text-sm mt-3 text-center">{error}</p>}
 

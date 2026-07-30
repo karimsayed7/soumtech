@@ -30,15 +30,15 @@ export default function ForgetPassword() {
   }
 
   return (
-    <div className="relative w-full h-screen flex flex-col items-center justify-center">
+    <div className="relative w-full min-h-screen flex flex-col items-center justify-center py-10 px-4">
       <Image src={"/assets/SignIn.png"} alt="sign in panner" fill className="object-cover -z-1"/>
       <Image src={"/assets/logo.svg"} alt="sign in panner" width={110} height={120} />
-      <Card className="py-6 px-2 flex items-center justify-center mt-5">
+
+      <Card className="py-6 px-2 flex items-center justify-center mt-5 w-full max-w-md">
         <CardTitle className="text-[25px] font-extrabold mb-5">استعادة كلمة المرور</CardTitle>
-        <CardContent>
+        <CardContent className="w-full">
           {sent ? (
-            <p className="text-gray-600 text-center max-w-xs text-[18px]">
-              {/* لو الإيميل ده مسجل عندنا، هتوصلك رسالة فيها رابط لاستعادة كلمة المرور. */}
+            <p className="text-gray-600 text-center max-w-xs mx-auto text-[18px]">
               اذا كان الايميل مسجل لدينا ستصلك رسالة بها رابط لاستعادة كلمة المرور
             </p>
           ) : (
@@ -47,7 +47,7 @@ export default function ForgetPassword() {
 
               {error && <p className="text-red-500 text-sm mt-3 text-center">{error}</p>}
 
-              <div className="flex items-center gap-5 mt-10">
+              <div className="flex flex-col sm:flex-row items-stretch gap-3 sm:gap-5 mt-10">
                 <Button type="submit" disabled={isPending} className="py-6 flex-1 text-white hover:bg-yellow-600 hover:cursor-pointer bg-yellow-500">
                   {isPending ? "جاري الإرسال..." : "استمرار"}
                 </Button>
@@ -62,9 +62,9 @@ export default function ForgetPassword() {
         </CardContent>
       </Card>
 
-      <div className="flex items-center gap-10 mt-5">
-        <Image src={"/assets/الهيئة العامة للعقار.svg"} alt="img" width={180} height={150}/>
-        <Image src={"/assets/infath.svg"} alt="img" width={100} height={150}/>
+      <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 mt-5 px-4">
+        <Image src={"/assets/الهيئة العامة للعقار.svg"} alt="img" width={180} height={150} className="w-32 sm:w-[180px] h-auto"/>
+        <Image src={"/assets/infath.svg"} alt="img" width={100} height={150} className="w-20 sm:w-[100px] h-auto"/>
       </div>
     </div>
   )
