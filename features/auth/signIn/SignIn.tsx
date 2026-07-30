@@ -36,7 +36,7 @@ export default function SignIn() {
   return (
     <div className="relative w-full min-h-screen flex flex-col items-center justify-center py-10 px-4">
       <Image src={"/assets/SignIn.png"} alt="sign in panner" fill className="object-cover -z-1"/>
-      <Image src={"/assets/logo.svg"} alt="sign in panner" width={110} height={120} />
+      <Image src={"/assets/logo.svg"} alt="logo" width={110} height={120} />
 
       <Card className="py-6 px-2 flex items-center justify-center mt-5 w-full max-w-md">
         <CardTitle className="text-[25px] font-extrabold mb-5">تسجيل الدخول</CardTitle>
