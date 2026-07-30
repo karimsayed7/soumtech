@@ -1,29 +1,53 @@
 "use client"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { useState, useTransition } from "react"
+import { useEffect, useState, useTransition } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
 import { ResetPasswordSchema, resetPasswordSchema } from "@/schema/Auth"
 import Image from "next/image"
 import FormInput from "@/components/shared/Fields/InputField"
-import { resetPasswordAction } from "./action"
+import { createClient } from "@/lib/supabase/client"
+import { useRouter } from "next/navigation"
 
 export default function ResetPassword() {
   const [error, setError] = useState<string | null>(null)
+  const [ready, setReady] = useState(false)
   const [isPending, startTransition] = useTransition()
+  const router = useRouter()
 
   const form = useForm<ResetPasswordSchema>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: { password: "", confirmPassword: "" },
   })
 
+  useEffect(() => {
+    const supabase = createClient()
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "PASSWORD_RECOVERY") setReady(true)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
+
   function onSubmit(data: ResetPasswordSchema) {
     setError(null)
     startTransition(async () => {
-      const result = await resetPasswordAction(data)
-      if (result?.error) setError(result.error)
+      const supabase = createClient()
+      const { error } = await supabase.auth.updateUser({ password: data.password })
+      if (error) {
+        setError("تعذر تحديث كلمة المرور، حاول مرة أخرى")
+      } else {
+        router.push("/")
+      }
     })
+  }
+
+  if (!ready) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <p className="text-gray-500">جاري التحقق من الرابط...</p>
+      </div>
+    )
   }
 
   return (

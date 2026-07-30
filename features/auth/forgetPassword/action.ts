@@ -9,7 +9,7 @@ export async function forgetPasswordAction(values: { email: string }) {
 
   const supabase = await createClient()
   const { error } = await supabase.auth.resetPasswordForEmail(parsed.data.email, {
-    redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/confirm?next=/ResetPassword`,
+    redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/ResetPassword`,
   })
 
   if (error) return { error: 'حدث خطأ، حاول مرة أخرى' }
