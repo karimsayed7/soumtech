@@ -24,7 +24,7 @@ export default async function Header() {
   const isAdmin = profile?.role === 'admin'
 
   return (
-    <div className='py-3 pb-8 pt-6 md:pt-3 md:pb-3 text-[#171D5B] md:text-white bg-white md:bg-[#171D5B] flex items-center justify-between px-4 md:px-10'>
+    <div className='py-3 pb-8 pt-6 md:pt-3 md:pb-3 text-[#171D5B] md:text-white bg-white md:bg-[#171D5B] flex items-center justify-between px-4 md:px-10 max-w-325 mx-auto'>
       <div className='flex items-center gap-4 md:gap-7'>
         <Logo />
         <div className='hidden md:block'>

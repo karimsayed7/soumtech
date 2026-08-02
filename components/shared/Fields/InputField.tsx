@@ -49,7 +49,7 @@ export default function FormInput<T extends FieldValues>({
             {label}
           </FieldLabel>
 
-          <div className="relative">
+          <div className="relative w-full">
             <Input
               {...field}
               id={name}
@@ -57,7 +57,7 @@ export default function FormInput<T extends FieldValues>({
               placeholder={placeholder}
               aria-invalid={fieldState.invalid}
               autoComplete="off"
-              className="bg-gray-50 !text-lg h-10 min-w-90 pe-10"
+              className="bg-gray-50 !text-lg h-10 w-full pe-10"
             />
 
             {type === "password" && (

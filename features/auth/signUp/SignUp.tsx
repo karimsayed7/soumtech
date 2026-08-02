@@ -8,7 +8,6 @@ import { SignUpSchema, signUpSchema } from "@/schema/Auth"
 import Image from "next/image"
 import FormInput from "@/components/shared/Fields/InputField"
 import Link from "next/link"
-// import { signUpAction } from "/actions"
 import { signUpAction } from "./action"
 
 export default function SignUp() {
@@ -35,14 +34,14 @@ export default function SignUp() {
 
   if (submittedEmail) {
     return (
-      <div className="relative w-full h-screen flex flex-col items-center justify-center">
+      <div className="relative w-full min-h-screen flex flex-col items-center justify-center py-10 px-4">
         <Image src={"/assets/SignIn.png"} alt="sign in panner" fill className="object-cover -z-1"/>
-        <Card className="py-10 px-8 text-center max-w-md">
+        <Card className="py-10 px-4 sm:px-8 text-center w-full max-w-md">
           <CardTitle className="text-[22px] font-extrabold mb-4">تحقق من إيميلك</CardTitle>
           <CardContent>
-            <p className="text-gray-600 text-[18px] ">
+            <p className="text-gray-600 text-[18px]">
               تم ارسال رابط تأكيد على <span className="font-semibold">{submittedEmail}</span>.
-              تحقق من الإيميل واضغط على <span className="font-semibold">confirm</span>  لتفعيل حسابك.
+              تحقق من الإيميل واضغط على <span className="font-semibold">confirm</span> لتفعيل حسابك.
             </p>
           </CardContent>
         </Card>
@@ -51,17 +50,18 @@ export default function SignUp() {
   }
 
   return (
-    <div className="relative w-full h-screen flex flex-col items-center justify-center">
+    <div className="relative w-full min-h-screen flex flex-col items-center justify-center py-10 px-4">
       <Image src={"/assets/SignIn.png"} alt="sign in panner" fill className="object-cover -z-1"/>
       <Image src={"/assets/logo.svg"} alt="sign in panner" width={110} height={120} />
-      <Card className="py-6 px-2 flex items-center justify-center mt-5">
+
+      <Card className="py-6 px-2 flex items-center justify-center mt-5 w-full max-w-md">
         <CardTitle className="text-[25px] font-extrabold mb-5">تسجيل حساب جديد</CardTitle>
-        <CardContent>
-          <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
+        <CardContent className="w-full">
+          <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormInput control={form.control} name="name" label="الاسم" />
             <FormInput control={form.control} name="phone" label="رقم الهاتف" />
             <FormInput control={form.control} name="email" label="الإيميل" />
-            <FormInput control={form.control} name="password" label="كلمة المرور" type="password"/>
+            <FormInput control={form.control} name="password" label="كلمة المرور" type="password" />
 
             {error && (
               <p className="text-red-500 text-sm mt-3 text-center">{error}</p>
