@@ -1,0 +1,101 @@
+"use client"
+
+import { Tabs as TabsPrimitive } from "@base-ui/react/tabs"
+import { cva, type VariantProps } from "class-variance-authority"
+
+import { cn } from "@/lib/utils"
+
+function Tabs({
+  className,
+  orientation = "horizontal",
+  ...props
+}: TabsPrimitive.Root.Props) {
+  return (
+    <TabsPrimitive.Root
+      data-slot="tabs"
+      data-orientation={orientation}
+      className={cn(
+        "group/tabs flex gap-2 data-horizontal:flex-col",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+const tabsListVariants = cva(
+  "group/tabs-list inline-flex w-fit items-center justify-center rounded-lg p-[3px] text-muted-foreground group-data-horizontal/tabs:h-10 group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col data-[variant=line]:rounded-none",
+  {
+    variants: {
+      variant: {
+        default: "bg-muted",
+        line: "gap-1 bg-transparent",
+        // ✅ الـ variant الجديد
+        custom: "bg-white p-1 rounded-2xl shadow-md border-2  dark:bg-gray-900 dark:shadow-[0_8px_30px_rgb(0,0,0,0.4)]",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
+
+function TabsList({
+  className,
+  variant = "default",
+  ...props
+}: TabsPrimitive.List.Props & VariantProps<typeof tabsListVariants>) {
+  return (
+    <TabsPrimitive.List
+      data-slot="tabs-list"
+      data-variant={variant}
+      className={cn(tabsListVariants({ variant }), className)}
+      {...props}
+    />
+  )
+}
+
+function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
+  return (
+    <TabsPrimitive.Tab
+      data-slot="tabs-trigger"
+      className={cn(
+        // الخصائص الاساسية
+        "relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 px-1.5 py-0.5 text-sm font-medium whitespace-nowrap transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        
+        // الشكل العام للتاب (ابيض وخلفية بيضاء وكلام اسود)
+        "rounded-md border border-transparent text-black bg-white hover:bg-gray-50 dark:text-white dark:bg-gray-900 dark:hover:bg-gray-800",
+        
+        // ✅ خصائص الـ variant custom
+        "group-data-[variant=custom]/tabs-list:rounded-xl group-data-[variant=custom]/tabs-list:px-10 group-data-[variant=custom]/tabs-list:py-4 group-data-[variant=custom]/tabs-list:text-lg group-data-[variant=custom]/tabs-list:font-bold",
+        
+        // شكل التاب النشط للـ default
+        "data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground group-data-[variant=default]/tabs-list:data-active:shadow-sm",
+        
+        // ✅ شكل التاب النشط للـ custom (احمر وخلفية حمراء وكلام ابيض)
+        "group-data-[variant=custom]/tabs-list:data-active:bg-red-600 group-data-[variant=custom]/tabs-list:data-active:text-white group-data-[variant=custom]/tabs-list:data-active:shadow-md group-data-[variant=custom]/tabs-list:data-active:shadow-red-500/30 group-data-[variant=custom]/tabs-list:data-active:border-0 group-data-[variant=custom]/tabs-list:data-active:hover:bg-red-600",
+        
+        // شكل التاب النشط للـ line
+        "group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent",
+        
+        // الـ indicator بتاع الـ line
+        "after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100",
+        
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function TabsContent({ className, ...props }: TabsPrimitive.Panel.Props) {
+  return (
+    <TabsPrimitive.Panel
+      data-slot="tabs-content"
+      className={cn("flex-1 text-sm outline-none", className)}
+      {...props}
+    />
+  )
+}
+
+export { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants }
