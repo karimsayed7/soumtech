@@ -10,12 +10,12 @@ export default function AuctionAssetsPanner({
 }) {
   return (
     <div>
-          <div className="relative w-fit mx-10 mt-10">
+          <div className="relative w-fit mx-0 mt-10">
             <p className="text-[27px] font-extrabold text-[#171D5B]">المزادات</p>
             <span className="absolute mt-[2px] right-0 h-[4px] w-1/2 bg-yellow-500 animate-underline-grow" />
           </div>
           <div className="relative left-1/2 right-1/2 -mx-[51vw] w-screen bg-[#F3F4F6] mt-2">
-            <div className="max-w-[1300px] mx-auto py-5 flex items-center justify-between px-18 sm:px-22">
+            <div className="max-w-[1300px] mx-auto py-5 flex items-center justify-between px-10 sm:px-12 sm:pl-5">
               <div>
                 <p className="text-[20px] font-extrabold text-[#171D5B]">
                   {auctionName}
