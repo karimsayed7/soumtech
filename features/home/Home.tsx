@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Panner from "./Panner";
+import HomePanner from "./HomePanner";
 import { AuctionCard } from "@/components/shared/Auction/AuctionCard";
 import { AuctionTabsNav } from "@/components/shared/Auction/AuctionTabsNav";
-import { getAuctions, type AuctionStatus } from "@/features/auctions/api/getAuctions";
+import { getAuctions, type AuctionStatus } from "@/api/getAuctions";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -19,7 +19,7 @@ export default async function HomePage({
 
   return (
     <section className="py-8">
-      <Panner />
+      <HomePanner />
 
       <div>
         <h1 className="text-xl font-bold text-center mb-5 px-10 pt-10 text-[#171D5B]">شركات المزادات</h1>

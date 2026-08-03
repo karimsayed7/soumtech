@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server"; 
 
-import type { Tables } from "@/lib/database.types";
+import type { Tables } from "@/lib/supabase/database.types";
 
 export type AuctionStatus = "ongoing" | "upcoming" | "ended";
 
@@ -30,4 +30,20 @@ export async function getAuctions(status: AuctionStatus, page: number) {
     totalCount: count ?? 0,
     totalPages: Math.max(1, Math.ceil((count ?? 0) / PAGE_SIZE)),
   };
+}
+// api/getAuctions.ts
+// ... الكود الموجود زي ما هو، وضيف الدالة دي تحت getAuctions
+
+export async function getAuctionById(auctionId: string) {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("auctions_live")
+    .select("*, companies(name, logo_url)")
+    .eq("id", auctionId)
+    .single();
+
+  if (error) throw error;
+
+  return data as AuctionListItem;
 }

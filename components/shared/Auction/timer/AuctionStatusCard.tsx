@@ -1,13 +1,13 @@
 import { AuctionCountdown } from "./components/AuctionCountdown";
 import { UpcomingAuctionCard } from "./components/UpcomingAuctionCard";
 import { EndedAuctionCard } from "./components/EndedAuctionCard";
-import type { AuctionStatus } from "@/features/auctions/api/getAuctions";
+import type { AuctionStatus } from "@/api/getAuctions";
 
 type Props = {
   status: AuctionStatus;
   remainingSeconds?: number | null;
-  startDate: string;
-  startTime: string;
+  startDate: string | null;
+  startTime: string | null;
 };
 
 export function AuctionStatusCard({

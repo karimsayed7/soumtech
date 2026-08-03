@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { AuctionStatus } from "@/features/auctions/api/getAuctions";
+import type { AuctionStatus } from "@/api/getAuctions";
 
 const TABS: { value: AuctionStatus; label: string }[] = [
   { value: "ongoing", label: "القائمة" },

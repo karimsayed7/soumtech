@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 
-export default function Panner() {
+export default function HomePanner() {
   return (
     <div className="relative w-full max-w-[1150px] h-[300px] mx-auto overflow-hidden rounded-xl">
         <Image

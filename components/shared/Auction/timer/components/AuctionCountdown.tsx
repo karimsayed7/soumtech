@@ -32,7 +32,7 @@ export function AuctionCountdown({ initialSeconds }: { initialSeconds: number })
   ];
 
   return (
-    <div className="flex items-center justify-between border-2 p-2 py-1 rounded-lg mt-5 h-12">
+    <div className="flex items-center justify-between border-2 p-2 py-1 rounded-lg h-12">
       {units.map((unit, index) => (
         <div key={unit.label} className="flex items-center gap-3">
           {/* الرقم والـ label */}
