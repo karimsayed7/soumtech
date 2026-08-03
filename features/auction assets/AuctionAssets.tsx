@@ -64,10 +64,11 @@ export default async function AuctionAssets({
       )}
 
       {shownAs === "cards" && 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        // <div className="grid grid-cols-1 min-[900px]:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-8">
           {
             assets?.map((asset, index) => (
-              <div key={index}>
+              <div key={index} className=''>
                 <AssetCard asset={asset} auction={auction}/>
               </div>
             ))
