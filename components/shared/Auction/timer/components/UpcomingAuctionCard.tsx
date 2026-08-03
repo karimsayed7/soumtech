@@ -1,6 +1,6 @@
 type UpcomingAuctionCardProps = {
-  startDate: string;
-  startTime: string;
+  startDate: string | null;
+  startTime: string | null;
 };
 
 export function UpcomingAuctionCard({
@@ -8,7 +8,7 @@ export function UpcomingAuctionCard({
   startTime,
 }: UpcomingAuctionCardProps) {
   return (
-    <div className="mt-5 h-12 p-2 py-1 overflow-hidden rounded-lg border-2">
+    <div className="h-12 p-2 py-1 overflow-hidden rounded-lg border-2">
       <div className="flex items-center justify-between">
         <div className="flex flex-col justify-center">
           <p className="text-sm text-muted-foreground">
