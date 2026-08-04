@@ -7,7 +7,8 @@ import AuctionAssetsPanner from './components/AuctionAssetsPanner'
 import ReusableTable from '@/components/shared/Table/ReusableTable'
 import { renderAssetCell } from '@/components/shared/Table/cells/asset-cells'
 import AuctionAssetsTabs from './components/AuctionAssetsTabs'
-import AssetCard from '@/components/shared/AssetCard'
+import AssetCard from '@/components/shared/Asset/AssetCard'
+import AuctionAssetsMap from './components/AuctionAssetsMap'
 
 const TABLE_HEADERS = [
   'انضم للمزاد',
@@ -64,7 +65,6 @@ export default async function AuctionAssets({
       )}
 
       {shownAs === "cards" && 
-        // <div className="grid grid-cols-1 min-[900px]:grid-cols-2 lg:grid-cols-3 gap-8">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-8">
           {
             assets?.map((asset, index) => (
@@ -75,7 +75,12 @@ export default async function AuctionAssets({
           }
         </div>
     }  
-      {shownAs === "map" && <p>map</p>}
+      {shownAs === "map" && (
+        <>
+          <AuctionAssetsMap assets={assets} auction={auction}/>
+        </>
+      )
+      }
     </div>
   )
 }

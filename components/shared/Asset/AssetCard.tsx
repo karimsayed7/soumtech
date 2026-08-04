@@ -1,28 +1,29 @@
 import React from 'react'
 import Link from 'next/link'
 import { AuctionStatusCard } from '@/components/shared/Auction/timer/AuctionStatusCard'
-import { Button } from '@/components/ui/button'
 import { formatOpenDateTime } from '@/lib/FormatComingDate'
-import { ImageWithFallback } from './Imagewithfallback'
-import type { Database } from '@/lib/supabase/database.types'
-import type { AuctionListItem } from '@/api/getAuctions'
+import { ImageWithFallback } from '../Imagewithfallback'
 import { MapPin } from 'lucide-react';
 import Image from 'next/image'
+import type { AuctionListItem } from '@/api/getAuctions'
+import type { Database } from '@/lib/supabase/database.types'
+import { cn } from '@/lib/utils'
 
 interface AssetCardProps {
     asset : Database['public']['Tables']['assets']['Row']
     auction : AuctionListItem
+    shadow?: boolean;
 }
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-US").format(value);
 }
 
-export default function AssetCard({asset, auction} : AssetCardProps) {
+export default function AssetCard({asset, auction, shadow = true} : AssetCardProps) {
     const { date: openDate, time: openTime } = formatOpenDateTime(auction.current_open_at);
 
   return (
-    <div className='py-2 px-3 rounded-lg shadow-xl flex gap-3 border-2 border-gray-100'>
+    <div className={cn('py-2 px-3 rounded-lg flex gap-3', shadow && 'shadow-[0_0_20px_rgba(0,0,0,0.12)]')}>
       <div className='overflow-hidden rounded-xl h-auto w-30 relative border-2 border-gray-100'>
         <ImageWithFallback src={asset.images[0]} alt='asset' fill className='object-cover'/>
         <p className='absolute bottom-0 text-base font-bold flex gap-2 text-white w-full h-7 backdrop-blur-2xl items-center justify-center'><MapPin size={17} className='-mt-1'/>{auction.city} </p>
@@ -43,7 +44,7 @@ export default function AssetCard({asset, auction} : AssetCardProps) {
             <div>
                 <h1 className='font-bold text-[#171D5B] text-nowrap'>سعر السوم الحالى</h1>
                 <div className='flex gap-1 items-center'>
-                    <p className="text-yellow-600 text-[17px] font-extrabold">{formatCurrency(asset.current_bid_price)}</p>
+                    <p className="text-yellow-500 text-[17px] font-extrabold">{formatCurrency(asset.current_bid_price)}</p>
                     <span className='font-medium text-[#171D5B]'>ر.س</span>
                 </div>
                 <p className="text-xs text-gray-500 text-nowrap">({formatCurrency(asset.price_per_meter)} ر.س) للمتر</p>
