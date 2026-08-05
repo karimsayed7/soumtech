@@ -48,7 +48,7 @@ export function AuctionCard({ auction }: { auction: AuctionListItem }) {
             startTime={openTime}
           />
         </div>
-
+        
         <div className="flex items-center justify-between text-base mt-3">
           <div>
             <p className="font-extrabold text-lg text-[#171D5B]">عدد الاصول:</p>

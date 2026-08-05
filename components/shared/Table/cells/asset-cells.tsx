@@ -3,16 +3,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { AuctionStatusCard } from '@/components/shared/Auction/timer/AuctionStatusCard'
 import { Button } from '@/components/ui/button'
-import { formatOpenDateTime } from '@/lib/FormatComingDate'
 import type { Database } from '@/lib/supabase/database.types'
 import { ImageWithFallback } from '../../Imagewithfallback'
 import type { AuctionListItem } from '@/api/getAuctions'
-
-type Asset = Database['public']['Tables']['assets']['Row']
+import { formatOpenDateTime } from '@/lib/FormatComingDate'
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-US").format(value);
 }
+type Asset = Database['public']['Tables']['assets']['Row']
+
 
 export function renderAssetCell(header: string, asset: Asset, auction: AuctionListItem) {
     const { date: openDate, time: openTime } = formatOpenDateTime(auction.current_open_at);
@@ -61,7 +61,7 @@ export function renderAssetCell(header: string, asset: Asset, auction: AuctionLi
       return <AuctionStatusCard status={auction.status} remainingSeconds={auction.remaining_seconds} startDate={openDate} startTime={openTime} />
     case 'تفاصيل المزاد':
       return (
-        <Link href={`/auctions/${auction.id}/assets/${asset.id}`} className="text-white transition hover:bg-yellow-600 bg-yellow-500 rounded-lg px-3 py-2 w-fit block text-center">
+        <Link href={`/assets/${asset.id}`} className="text-white transition hover:bg-yellow-600 bg-yellow-500 rounded-lg px-3 py-2 w-fit block text-center">
           تفاصيل المزاد
         </Link>
       )
