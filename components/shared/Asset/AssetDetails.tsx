@@ -1,12 +1,11 @@
 "use client"
 import React from 'react'
-import type { AuctionListItem } from '@/api/getAuctions'
-import type { Database } from '@/lib/supabase/database.types'
+import type { Tables } from '@/lib/supabase/database.types'
 import AssetDetailsLabel from './AssetDetailsLabel'
 
 interface AssetCardProps {
-    asset : Database['public']['Tables']['assets']['Row']
-    auction : AuctionListItem 
+    asset : Tables<'assets'>
+    auction : Tables<'auctions_live'>
 }
 
 export default function AssetDetails({asset, auction} : AssetCardProps) {

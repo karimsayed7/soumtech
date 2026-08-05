@@ -3,6 +3,7 @@ import { getAssetWithAuction } from '@/api/getAssetWithAuction'
 import Image from 'next/image'
 import AssetDetails from '@/components/shared/Asset/AssetDetails'
 import MapPage from '@/components/shared/map/MapPage'
+// import AssetImageSlider from '@/components/shared/Asset/AssetImageSlider'
 import AssetImageSlider from '@/components/shared/Asset/AssetImageSlider.tsx'
 import { Button } from '@/components/ui/button'
 import { AuctionStatusCard } from '@/components/shared/Auction/timer/AuctionStatusCard'
@@ -10,12 +11,13 @@ import { formatOpenDateTime } from '@/lib/FormatComingDate'
 import AssetPricingCard from './components/AssetPricingCard'
 import AssetStatsCard from './components/AssetStatsCard'
 import BidSection from './components/BidSection'
+import type { AuctionStatus } from '@/api/getAuctions'
 
 
 export default async function BiddingPage({ assetId }: { assetId: string }) {
   const asset = await getAssetWithAuction(assetId)
 
-  if (!asset) notFound()
+  if (!asset || !asset.auction) notFound()
 
   const { auction, ...assetData } = asset
   const { date: openDate, time: openTime } = formatOpenDateTime(auction.current_open_at);
@@ -38,7 +40,7 @@ export default async function BiddingPage({ assetId }: { assetId: string }) {
       <div className='flex-1 order-2 lg:order-1 h-fit rounded-lg shadow-[0_0_10px_rgba(0,0,0,0.12)] p-3 pb-5'>
         <div className='flex pt-2 pb-4 border-b-2 border-gray-100 items-center justify-between'>
           <div className='text-2xl font-bold flex items-center gap-2'>
-            {asset.property_type} <div className='h-1 w-2 bg-black'></div> {auction?.name}
+            {asset.property_type} <div className='h-1 w-2 bg-black'></div> {auction.name}
           </div>
           <Button className="text-white bg-[#171D5B] px-6 py-5 cursor-pointer hover:bg-[#171D5B] rounded-md text-lg flex items-center gap-3">
             <p className='text-2xl'>+</p>
@@ -58,7 +60,7 @@ export default async function BiddingPage({ assetId }: { assetId: string }) {
 
         <div className='my-5'>
           <AuctionStatusCard 
-            status={auction.status} 
+            status={(auction.status as AuctionStatus) ?? "upcoming"} 
             remainingSeconds={auction.remaining_seconds} 
             startDate={openDate} 
             startTime={openTime} 
