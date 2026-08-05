@@ -1,11 +1,11 @@
 "use client"
 
 import { useMemo, useState } from 'react'
+import AssetCard from '@/components/shared/Asset/AssetCard'
+import MapPage from '@/components/shared/map/MapPage'
+import AssetDetails from '@/components/shared/Asset/AssetDetails'
 import type { AuctionListItem } from '@/api/getAuctions'
 import type { Database } from '@/lib/supabase/database.types'
-import AssetCard from '@/components/shared/Asset/AssetCard'
-import AssetDetails from '@/components/shared/Asset/AssetDetails'
-import MapPage from '@/components/shared/map/MapPage'
 
 interface AssetCardProps {
     assets: Database['public']['Tables']['assets']['Row'][] | null

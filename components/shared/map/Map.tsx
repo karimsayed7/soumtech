@@ -10,14 +10,13 @@ type Asset = Database["public"]["Tables"]["assets"]["Row"];
 
 export interface MapProps {
   assets: Asset[] | null;
-  selectedAsset: Asset | null;
-  onSelectAsset: (asset: Asset) => void;
+  selectedAsset?: Asset | null;
+  onSelectAsset?: (asset: Asset) => void;
 }
 
 const PRIMARY_COLOR = "#171D5B";
 const GOLD_BORDER = "#fff";
 
-// SVG pin shape — بنعمله كـ function عشان نقدر نتحكم في اللون والبوردر لكل حالة
 function createPinIcon(isSelected: boolean) {
   const size = isSelected ? 40 : 32;
   const borderWidth = isSelected ? 2 : 0;
@@ -36,14 +35,14 @@ function createPinIcon(isSelected: boolean) {
 
   return L.divIcon({
     html: svg,
-    className: "", // مهم! عشان تمنع الـ default Leaflet styling (خلفية بيضا/بوردر)
+    className: "",
     iconSize: [size, size],
-    iconAnchor: [size / 2, size], // نص التحت هو نقطة الموقع الفعلية
+    iconAnchor: [size / 2, size],
     popupAnchor: [0, -size],
   });
 }
 
-function FlyToSelected({ asset }: { asset: Asset | null }) {
+function FlyToSelected({ asset }: { asset?: Asset | null }) {
   const map = useMap();
 
   useEffect(() => {
@@ -57,7 +56,11 @@ function FlyToSelected({ asset }: { asset: Asset | null }) {
   return null;
 }
 
-export default function Map({ assets, selectedAsset, onSelectAsset }: MapProps) {
+export default function Map({
+  assets,
+  selectedAsset,
+  onSelectAsset,
+}: MapProps) {
   const validAssets = useMemo(
     () => (assets ?? []).filter((a) => a.lat != null && a.lng != null),
     [assets]
@@ -72,8 +75,6 @@ export default function Map({ assets, selectedAsset, onSelectAsset }: MapProps) 
       center={defaultCenter}
       zoom={13}
       scrollWheelZoom
-      // style={{ height: "100%", width: "100%" }}
-      // className="rounded-xl z-0 shadow-lg w-full md:h-full h-[500px]"
       className="h-[300px] md:h-full w-full rounded-xl shadow-md md:shadow-lg mb-5 md:mb-0"
     >
       <TileLayer
@@ -83,14 +84,19 @@ export default function Map({ assets, selectedAsset, onSelectAsset }: MapProps) 
 
       {validAssets.map((asset) => {
         const isSelected = asset.id === selectedAsset?.id;
+
         return (
           <Marker
             key={asset.id}
             position={[Number(asset.lat), Number(asset.lng)]}
             icon={createPinIcon(isSelected)}
-            eventHandlers={{
-              click: () => onSelectAsset(asset),
-            }}
+            eventHandlers={
+              onSelectAsset
+                ? {
+                    click: () => onSelectAsset(asset),
+                  }
+                : undefined
+            }
           >
             <Popup>{asset.property_name}</Popup>
           </Marker>

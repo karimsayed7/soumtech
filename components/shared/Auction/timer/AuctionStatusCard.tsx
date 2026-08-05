@@ -8,6 +8,7 @@ type Props = {
   remainingSeconds?: number | null;
   startDate: string | null;
   startTime: string | null;
+  size?: "sm" | "lg";
 };
 
 export function AuctionStatusCard({
@@ -15,12 +16,14 @@ export function AuctionStatusCard({
   remainingSeconds,
   startDate,
   startTime,
+  size = "sm",
 }: Props) {
   switch (status) {
     case "ongoing":
       return (
         <AuctionCountdown
           initialSeconds={remainingSeconds ?? 0}
+          size={size}
         />
       );
 
@@ -29,10 +32,11 @@ export function AuctionStatusCard({
         <UpcomingAuctionCard
           startDate={startDate}
           startTime={startTime}
+          size={size}
         />
       );
 
     case "ended":
-      return <EndedAuctionCard />;
+      return <EndedAuctionCard size={size} />;
   }
 }

@@ -2,8 +2,14 @@
 
 import { useEffect, useState } from "react";
 
+type Props = {
+  initialSeconds: number;
+  size?: "sm" | "lg";
+};
+
 function format(totalSeconds: number) {
   const s = Math.max(0, totalSeconds);
+
   return {
     days: Math.floor(s / 86400),
     hours: Math.floor((s % 86400) / 3600),
@@ -12,15 +18,38 @@ function format(totalSeconds: number) {
   };
 }
 
-export function AuctionCountdown({ initialSeconds }: { initialSeconds: number }) {
+export function AuctionCountdown({
+  initialSeconds,
+  size = "sm",
+}: Props) {
   const [seconds, setSeconds] = useState(initialSeconds);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setSeconds((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
+
     return () => clearInterval(timer);
   }, []);
+
+  const styles = {
+    sm: {
+      container: "h-12 p-2 py-1",
+      value: "text-lg",
+      label: "text-sm",
+      colon: "text-xl",
+      gap: "gap-3",
+    },
+    lg: {
+      container: "h-16 px-5 py-3",
+      value: "text-2xl",
+      label: "text-base",
+      colon: "text-3xl",
+      gap: "gap-5",
+    },
+  };
+
+  const ui = styles[size];
 
   const { days, hours, minutes, seconds: s } = format(seconds);
 
@@ -32,18 +61,25 @@ export function AuctionCountdown({ initialSeconds }: { initialSeconds: number })
   ];
 
   return (
-    <div className="flex items-center justify-between border-2 p-2 py-1 rounded-lg h-12">
+    <div
+      className={`flex items-center justify-between rounded-lg border-2 ${ui.container}`}
+    >
       {units.map((unit, index) => (
-        <div key={unit.label} className="flex items-center gap-3">
-          {/* الرقم والـ label */}
+        <div key={unit.label} className={`flex items-center ${ui.gap}`}>
           <div className="flex flex-col items-center">
-            <span className="text-lg font-bold text-[#171D5B]">{String(unit.value).padStart(2, "0")}</span>
-            <span className="text-sm text-muted-foreground -mt-1">{unit.label}</span>
+            <span className={`${ui.value} font-bold text-[#171D5B]`}>
+              {String(unit.value).padStart(2, "0")}
+            </span>
+
+            <span className={`${ui.label} text-muted-foreground -mt-1`}>
+              {unit.label}
+            </span>
           </div>
-          
-          {/* علامة `:` مرتفعة للأعلى */}
+
           {index < units.length - 1 && (
-            <span className="text-xl font-semibold text-muted-foreground self-start mt-[-3px]">
+            <span
+              className={`${ui.colon} self-start -mt-1 font-semibold text-muted-foreground`}
+            >
               :
             </span>
           )}
