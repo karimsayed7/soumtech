@@ -46,7 +46,7 @@ export default function SignIn() {
             <FormInput control={form.control} name="password" label="كلمة المرور" type="password" />
 
             <Link href={"/ForgetPassword"}>
-              <Button type="button" className="text-blue-800 px-0 hover:underline hover:cursor-pointer">
+              <Button type="button" className="text-blue-800 text-lg px-0 hover:underline bg-white hover:bg-white hover:cursor-pointer">
                 نسيت كلمة المرور
               </Button>
             </Link>
@@ -54,16 +54,16 @@ export default function SignIn() {
             {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5 mt-10">
-              <Button type="submit" disabled={isPending} className="py-6 px-6 sm:px-9 text-white hover:bg-yellow-600 hover:cursor-pointer bg-yellow-500">
+              <Button type="submit" disabled={isPending} className="py-6 text-lg px-6 sm:px-9 text-white hover:bg-yellow-600 hover:cursor-pointer flex-1 bg-yellow-500">
                 {isPending ? "جاري الدخول..." : "تسجيل الدخول"}
               </Button>
-              <Button type="button" onClick={handleAdminDemo} disabled={isPending} className="py-6 px-4 sm:px-8 text-white hover:bg-yellow-600 hover:cursor-pointer bg-yellow-500">
+              <Button type="button" onClick={handleAdminDemo} disabled={isPending} className="py-6 text-lg px-4 sm:px-8 text-white hover:bg-yellow-600 flex-1 hover:cursor-pointer bg-yellow-500">
                 تسجيل دخول تجريبى كأدمن
               </Button>
             </div>
 
             <Link href={"/SignUp"} className="flex items-center justify-center">
-              <Button type="button" className="py-6 mt-5 px-8 text-yellow-500 border-yellow-500 hover:bg-gray-50 hover:cursor-pointer bg-white">
+              <Button type="button" className="py-6 text-lg mt-5 px-8 text-yellow-500 border-yellow-500 hover:bg-gray-50 hover:cursor-pointer bg-white">
                 تسجيل حساب جديد من انفاذ
               </Button>
             </Link>

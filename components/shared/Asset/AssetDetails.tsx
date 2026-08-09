@@ -13,8 +13,8 @@ export default function AssetDetails({asset, auction} : AssetCardProps) {
     <div className=''>
       <div className='w-full  bg-gray-50'>
         <div className="relative w-fit mx-4 mt-5 pb-3 pt-2">
-            <p className="text-[20px] font-extrabold text-[#171D5B]">التفاصيل</p>
-            <span className="absolute mt-[2px] right-0 h-[4px] w-1/2 bg-orange-600 animate-underline-grow" />
+            <p className="text-[20px] font-extrabold">التفاصيل</p>
+            <span className="absolute mt-[2px] right-0 h-[3px] rounded-full w-1/2 bg-orange-600 animate-underline-grow" />
         </div>
       </div>
 

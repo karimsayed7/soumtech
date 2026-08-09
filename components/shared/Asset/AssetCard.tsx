@@ -68,7 +68,7 @@ export default function AssetCard({asset, auction, shadow = true} : AssetCardPro
                 </div>
             </div>
 
-            <Link href={`/assets/${asset.id}`} className="text-white transition hover:bg-yellow-600 bg-yellow-500 rounded-lg px-3 py-2 flex-2 block text-center">
+            <Link href={`/auctions/${auction.id}/assets/${asset.id}`} className="text-white transition hover:bg-yellow-600 bg-yellow-500 rounded-lg px-3 py-2 flex-2 block text-center">
             تفاصيل المزاد   
             </Link>
         </div>

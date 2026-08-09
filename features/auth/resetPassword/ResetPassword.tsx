@@ -65,7 +65,7 @@ export default function ResetPassword() {
             {error && <p className="text-red-500 text-sm mt-3 text-center">{error}</p>}
 
             <div className="flex items-center justify-center mt-10">
-              <Button type="submit" disabled={isPending} className="py-6 px-10 text-white hover:bg-yellow-600 hover:cursor-pointer bg-yellow-500">
+              <Button type="submit" disabled={isPending} className="py-6 text-lg px-10 text-white hover:bg-yellow-600 hover:cursor-pointer bg-yellow-500">
                 {isPending ? "جاري الحفظ..." : "تأكيد"}
               </Button>
             </div>

@@ -9,9 +9,9 @@ import { renderAssetCell } from '@/components/shared/Table/cells/asset-cells'
 import AuctionAssetsTabs from './components/AuctionAssetsTabs'
 import AssetCard from '@/components/shared/Asset/AssetCard'
 import AuctionAssetsMap from './components/AuctionAssetsMap'
+import DynamicBreadcrumb from '@/components/shared/DynamicBreadCrump'
 
 const TABLE_HEADERS = [
-  'انضم للمزاد',
   'اسم العقار',
   'سعر السوم الحالي',
   'المساحة',
@@ -37,15 +37,52 @@ export default async function AuctionAssets({
     notFound()
   }
 
-  const { data: assets } = await supabase
-    .from('assets')
-    .select('*')
-    .eq('auction_id', auctionId)
+const { data: assets } = await supabase
+  .from('assets')
+  .select('*')
+  .eq('auction_id', auctionId)
+
+const assetIds = assets?.map((a) => a.id) ?? []
+
+let bidsCountMap = new Map<string, number>()
+if (assetIds.length > 0) {
+  const { data: bids } = await supabase
+    .from('bidders')
+    .select('asset_id')
+    .in('asset_id', assetIds)
+
+  bidsCountMap = (bids ?? []).reduce((map, bid) => {
+  if (!bid.asset_id) return map
+  map.set(bid.asset_id, (map.get(bid.asset_id) ?? 0) + 1)
+  return map
+}, new Map<string, number>())
+}
+
+const assetsWithBidsCount = (assets ?? []).map((asset) => ({
+  ...asset,
+  real_bids_count: bidsCountMap.get(asset.id) ?? 0,
+}))
 
   if (!auction) notFound()
 
   return (
-    <div className="mb-20">
+    <div className="mb-50">
+      <DynamicBreadcrumb
+        items={[
+          {
+            href: "/",
+            label: "الرئيسية",
+          },
+          {
+            href: "/auctions",
+            label: "المزادات",
+          },
+          {
+            href: ``,
+            label: `${auction.name}`,
+          }
+        ]}
+      />
       <AuctionAssetsPanner
         auctionName={auction.name}
         assetsCount={assets?.length ?? auction.assets_count}
@@ -58,7 +95,7 @@ export default async function AuctionAssets({
       {shownAs === "table" && (
         <ReusableTable
           th={TABLE_HEADERS}
-          rows={assets ?? []}
+          rows={assetsWithBidsCount}
           getRowKey={(asset) => asset.id}
           renderCell={(header, asset) => renderAssetCell(header, asset, auction)}
         />
@@ -68,7 +105,7 @@ export default async function AuctionAssets({
         <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-8">
           {
             assets?.map((asset, index) => (
-              <div key={index} className=''>
+              <div key={index} className='max-w-[450px]'>
                 <AssetCard asset={asset} auction={auction}/>
               </div>
             ))

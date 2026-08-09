@@ -48,11 +48,11 @@ export default function ForgetPassword() {
               {error && <p className="text-red-500 text-sm mt-3 text-center">{error}</p>}
 
               <div className="flex flex-col sm:flex-row items-stretch gap-3 sm:gap-5 mt-10">
-                <Button type="submit" disabled={isPending} className="py-6 flex-1 text-white hover:bg-yellow-600 hover:cursor-pointer bg-yellow-500">
+                <Button type="submit" disabled={isPending} className="py-6 text-lg flex-1 text-white hover:bg-yellow-600 hover:cursor-pointer bg-yellow-500">
                   {isPending ? "جاري الإرسال..." : "استمرار"}
                 </Button>
                 <Link href={"/SignIn"} className="flex-1">
-                  <Button type="button" className="py-6 w-full text-yellow-500 border-yellow-500 hover:bg-gray-50 hover:cursor-pointer bg-white">
+                  <Button type="button" className="py-6 w-full text-yellow-500 text-lg border-yellow-500 hover:bg-gray-50 hover:cursor-pointer bg-white">
                     رجوع
                   </Button>
                 </Link>

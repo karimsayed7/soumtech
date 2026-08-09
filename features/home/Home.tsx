@@ -5,6 +5,7 @@ import { AuctionTabsNav } from "@/components/shared/Auction/AuctionTabsNav";
 import { getAuctions, type AuctionStatus } from "@/api/getAuctions";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import Footer from "@/components/shared/Footer";
 
 export default async function HomePage({
   searchParams,
@@ -60,6 +61,7 @@ export default async function HomePage({
           <Button className="rounded-full px-6 py-2 text-yellow-600 bg-white cursor-pointer border-2 border-yellow-600 text-lg hover:bg-yellow-50">عرض المزيد</Button> 
         </Link>
       </div>
+      {/* <Footer /> */}
     </section>
   );
 }
