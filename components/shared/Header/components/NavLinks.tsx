@@ -62,7 +62,7 @@ export default function NavLinks({
           <Link
             key={link.href}
             href={link.href}
-            className="relative py-1"
+            className="relative py-1 text-lg md:text-base"
           >
             <p
               className={cn(

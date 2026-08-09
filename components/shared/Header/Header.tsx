@@ -30,7 +30,7 @@ export default async function Header() {
   return (
     <>
       {/* Desktop */}
-      <header className="hidden md:grid md:grid-cols-3 items-center py-3 px-10 max-w-325 mx-auto text-white bg-[#171D5B]">
+      <header className="hidden md:grid md:grid-cols-3 items-center py-3 px-10 max-w-355 mx-auto text-white bg-[#171D5B]">
         {/* Left */}
         <div className="flex items-center gap-7 justify-start">
           <Logo />
