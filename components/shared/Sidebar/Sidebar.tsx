@@ -17,8 +17,8 @@ export default function Sidebar() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden h-screen w-64 shrink-0 bg-[#171D5B] md:block">
-        <div className="h-full pr-3 pt-4">
+      <aside className="hidden min-h-screen w-64 shrink-0 bg-[#171D5B] md:block">
+        <div className="h-screen pr-3 pt-4">
           <SidebarContent />
         </div>
       </aside>
