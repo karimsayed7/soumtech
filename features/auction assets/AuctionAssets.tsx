@@ -37,31 +37,55 @@ export default async function AuctionAssets({
     notFound()
   }
 
-const { data: assets } = await supabase
-  .from('assets')
-  .select('*')
-  .eq('auction_id', auctionId)
+  const { data: assets } = await supabase
+    .from('assets')
+    .select('*')
+    .eq('auction_id', auctionId)
 
-const assetIds = assets?.map((a) => a.id) ?? []
+  const assetIds = assets?.map((a) => a.id) ?? []
+  const { data: userData } = await supabase.auth.getUser()
+  const currentUserId = userData.user?.id ?? null
 
-let bidsCountMap = new Map<string, number>()
-if (assetIds.length > 0) {
-  const { data: bids } = await supabase
-    .from('bidders')
-    .select('asset_id')
-    .in('asset_id', assetIds)
+  let bidsCountMap = new Map<string, number>()
+  let topBidderMap = new Map<string, { bidder_id: string; bidder_type: string }>()
+  let registeredSet = new Set<string>()
 
-  bidsCountMap = (bids ?? []).reduce((map, bid) => {
-  if (!bid.asset_id) return map
-  map.set(bid.asset_id, (map.get(bid.asset_id) ?? 0) + 1)
-  return map
-}, new Map<string, number>())
-}
+  if (assetIds.length > 0) {
+    const [{ data: bids }, { data: registrations }] = await Promise.all([
+      supabase
+        .from('bidders')
+        .select('asset_id, bidder_id, bidder_type, bid_amount')
+        .in('asset_id', assetIds)
+        .order('bid_amount', { ascending: false }),
+      currentUserId
+        ? supabase.from('registrations').select('asset_id').eq('user_id', currentUserId).in('asset_id', assetIds)
+        : Promise.resolve({ data: [] as { asset_id: string }[] }),
+    ])
 
-const assetsWithBidsCount = (assets ?? []).map((asset) => ({
-  ...asset,
-  real_bids_count: bidsCountMap.get(asset.id) ?? 0,
-}))
+    bidsCountMap = (bids ?? []).reduce((map, bid) => {
+      if (!bid.asset_id) return map
+      map.set(bid.asset_id, (map.get(bid.asset_id) ?? 0) + 1)
+      return map
+    }, new Map<string, number>())
+
+    topBidderMap = (bids ?? []).reduce((map, bid) => {
+      if (!bid.asset_id || !bid.bidder_id || map.has(bid.asset_id)) return map
+      map.set(bid.asset_id, { bidder_id: bid.bidder_id, bidder_type: bid.bidder_type })
+      return map
+    }, new Map<string, { bidder_id: string; bidder_type: string }>())
+
+    registeredSet = new Set((registrations ?? []).map((r) => r.asset_id))
+  }
+
+  const assetsWithExtras = (assets ?? []).map((asset) => {
+    const topBidder = topBidderMap.get(asset.id)
+    return {
+      ...asset,
+      real_bids_count: bidsCountMap.get(asset.id) ?? 0,
+      is_registered: registeredSet.has(asset.id),
+      is_top_bidder: !!currentUserId && topBidder?.bidder_type === 'real' && topBidder?.bidder_id === currentUserId,
+    }
+  })
 
   if (!auction) notFound()
 
@@ -69,18 +93,9 @@ const assetsWithBidsCount = (assets ?? []).map((asset) => ({
     <div className="mb-50">
       <DynamicBreadcrumb
         items={[
-          {
-            href: "/",
-            label: "الرئيسية",
-          },
-          {
-            href: "/auctions",
-            label: "المزادات",
-          },
-          {
-            href: ``,
-            label: `${auction.name}`,
-          }
+          { href: "/", label: "الرئيسية" },
+          { href: "/auctions", label: "المزادات" },
+          { href: ``, label: `${auction.name}` }
         ]}
       />
       <AuctionAssetsPanner
@@ -95,29 +110,25 @@ const assetsWithBidsCount = (assets ?? []).map((asset) => ({
       {shownAs === "table" && (
         <ReusableTable
           th={TABLE_HEADERS}
-          rows={assetsWithBidsCount}
+          rows={assetsWithExtras}
           getRowKey={(asset) => asset.id}
           renderCell={(header, asset) => renderAssetCell(header, asset, auction)}
         />
       )}
 
-      {shownAs === "cards" && 
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-8">
-          {
-            assets?.map((asset, index) => (
-              <div key={index} className='max-w-[450px]'>
-                <AssetCard asset={asset} auction={auction}/>
-              </div>
-            ))
-          }
+      {shownAs === "cards" &&
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,420px))] gap-8">
+          {assetsWithExtras.map((asset) => (
+            <div key={asset.id}>
+              <AssetCard asset={asset} auction={auction} />
+            </div>
+          ))}
         </div>
-    }  
-      {shownAs === "map" && (
-        <>
-          <AuctionAssetsMap assets={assets} auction={auction}/>
-        </>
-      )
       }
+
+      {shownAs === "map" && (
+        <AuctionAssetsMap assets={assets} auction={auction} />
+      )}
     </div>
   )
 }

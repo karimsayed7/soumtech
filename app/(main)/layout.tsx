@@ -13,7 +13,7 @@ export default function MainLayout({
         <Header />
       </div>
       
-      <main className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 rounded-3xl">
+      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 rounded-3xl">
         {children}
       </main>
       <Footer/>

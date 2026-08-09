@@ -10,16 +10,21 @@ import type { Database } from '@/lib/supabase/database.types'
 import { cn } from '@/lib/utils'
 
 interface AssetCardProps {
-    asset : Database['public']['Tables']['assets']['Row']
+    asset : Database['public']['Tables']['assets']['Row'] & {
+      real_bids_count?: number
+      is_registered?: boolean
+      is_top_bidder?: boolean
+    }
     auction : AuctionListItem
     shadow?: boolean;
+    showBadges?: boolean;
 }
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-US").format(value);
 }
 
-export default function AssetCard({asset, auction, shadow = true} : AssetCardProps) {
+export default function AssetCard({asset, auction, shadow = true, showBadges = false} : AssetCardProps) {
     const { date: openDate, time: openTime } = formatOpenDateTime(auction.current_open_at);
 
   return (
@@ -31,25 +36,38 @@ export default function AssetCard({asset, auction, shadow = true} : AssetCardPro
 
       <div className='flex-2'>
         <div className='flex justify-between gap-5'>
-            {/* اسم الاصل والمساحة */}
             <div>
-                <h1 className='font-bold text-[#171D5B] text-nowrap'>{asset.property_name}</h1>
+                <h1 className='font-bold text-[#171D5B] text-wrap md:text-nowrap'>{asset.property_name}</h1>
                 <div className='flex items-center gap-1'>
                     <Image src={"/assets/area.svg"} alt='area' width={16} height={16} className='-mt-1'/>
                     <p className='text-[#171D5B]'>{asset.area_sqm} م<sup>2</sup></p>
                 </div>
             </div>
 
-            {/* سعر السوم الحالى */}
             <div>
-                <h1 className='font-bold text-[#171D5B] text-nowrap'>سعر السوم الحالى</h1>
+                <h1 className='font-bold text-[#171D5B] text-wrap md:text-nowrap'>سعر السوم الحالى</h1>
                 <div className='flex gap-1 items-center'>
                     <p className="text-yellow-500 text-[17px] font-extrabold">{formatCurrency(asset.current_bid_price)}</p>
                     <span className='font-medium text-[#171D5B]'>ر.س</span>
                 </div>
-                <p className="text-xs text-gray-500 text-nowrap">({formatCurrency(asset.price_per_meter)} ر.س) للمتر</p>
+                <p className="text-xs text-gray-500 text-wrap md:text-nowrap">({formatCurrency(asset.price_per_meter)} ر.س) للمتر</p>
             </div>
         </div>
+
+        {showBadges && (asset.is_registered || asset.is_top_bidder) && (
+          <div className='flex md:flex-row flex-col items-center gap-1 mt-3'>
+            {asset.is_registered && (
+              <span className="text-base font-bold flex items-center justify-center bg-blue-700 text-white rounded-full px-6 felx-1 py-2">
+                أنت مسجل في المزاد
+              </span>
+            )}
+            {asset.is_top_bidder && (
+              <span className="text-base font-bold flex items-center justify-center bg-green-500 text-white rounded-full px-3 flex-1 py-2">
+                أنت أعلى مزايد
+              </span>
+            )}
+          </div>
+        )}
 
         <div className='mt-5 mb-3'>
             <AuctionStatusCard status={auction.status} remainingSeconds={auction.remaining_seconds} startDate={openDate} startTime={openTime} />
@@ -63,13 +81,13 @@ export default function AssetCard({asset, auction, shadow = true} : AssetCardPro
                 </div>
 
                 <div className='flex items-center gap-1'>
-                    <p className='text-yellow-600 font-bold text-lg'>{asset.bids_count}</p>
+                    <p className='text-yellow-600 font-bold text-lg'>{asset.real_bids_count ?? asset.bids_count}</p>
                     <p className='text-gray-500'>مزايد</p>
                 </div>
             </div>
 
             <Link href={`/auctions/${auction.id}/assets/${asset.id}`} className="text-white transition hover:bg-yellow-600 bg-yellow-500 rounded-lg px-3 py-2 flex-2 block text-center">
-            تفاصيل المزاد   
+            تفاصيل المزاد
             </Link>
         </div>
       </div>
