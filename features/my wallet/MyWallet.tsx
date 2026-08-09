@@ -26,7 +26,7 @@ export default async function MyWallet() {
   const bankAccount = Number(profile?.bank_account ?? 0)
 
   return (
-    <div>
+    <div className='pb-20'>
       <AnalystCard
         imgSrc="/assets/money.svg"
         label="اجمالى الرصيد المتاح"
