@@ -68,7 +68,7 @@ export default function SignUp() {
             )}
 
             <Link href={"/SignIn"}>
-              <Button type="button" className="text-blue-800 px-0 hover:underline hover:cursor-pointer">
+              <Button type="button" className="text-blue-800 text-lg px-0 hover:underline bg-white hover:bg-white hover:cursor-pointer">
                 تسجيل الدخول
               </Button>
             </Link>
@@ -77,7 +77,7 @@ export default function SignUp() {
               <Button
                 type="submit"
                 disabled={isPending}
-                className="py-6 px-8 text-yellow-500 border-yellow-500 hover:bg-gray-50 hover:cursor-pointer bg-white"
+                className="py-6 px-8 text-lg text-yellow-500 border-yellow-500 hover:bg-gray-50 hover:cursor-pointer bg-white"
               >
                 {isPending ? "جاري إنشاء الحساب..." : "تسجيل حساب جديد"}
               </Button>

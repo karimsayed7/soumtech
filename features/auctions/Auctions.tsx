@@ -4,6 +4,7 @@ import { AuctionTabsNav } from '@/components/shared/Auction/AuctionTabsNav';
 import { Paginations } from '@/components/shared/Paginations';
 import { AuctionCard } from '@/components/shared/Auction/AuctionCard';
 import AuctionPanner from './AuctionPanner';
+import DynamicBreadcrumb from '@/components/shared/DynamicBreadCrump';
 
 export default async function Auctions({
   searchParams,
@@ -18,7 +19,20 @@ export default async function Auctions({
     const { auctions, totalPages, totalCount } = await getAuctions(status, page);
 
     return (
-        <div>
+        <div>       
+            <div className='px-0 sm:px-10'>
+                <DynamicBreadcrumb
+                    items={[
+                        {
+                        href: "/",
+                        label: "الرئيسية",
+                        },
+                        {
+                        href: "",
+                        label: "المزادات",}
+                    ]}
+                />     
+            </div>
             <AuctionPanner totalCount={totalCount} status={status} />
 
             <div className="p-10 space-y-6">

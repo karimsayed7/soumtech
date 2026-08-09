@@ -28,16 +28,16 @@ export default function ProfileSection({ isLoggedIn, profile }: ProfileSectionPr
       <div className='w-9 h-9 rounded-full bg-yellow-500 text-[#171D5B] flex items-center justify-center font-bold text-[20px]'>
         {firstLetter}
       </div>
-      <div className='text-[18px] md:text-base'>
+      <div className='text-[18px] md:text-base hidden md:block'>
         <p className='text-yellow-500 font-semibold'>مرحبا</p>
         <p>{profile?.full_name}</p>
       </div>
 
-      <form action={signOutAction}>
+      {/* <form action={signOutAction}>
         <Button type="submit" variant="ghost" className="text-white hover:text-yellow-500 hover:bg-transparent hover:cursor-pointer">
           تسجيل الخروج
         </Button>
-      </form>
+      </form> */}
     </div>
   )
 }
