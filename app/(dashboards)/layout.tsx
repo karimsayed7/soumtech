@@ -20,13 +20,13 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
       <Sidebar />
-      <div className="bg-[#171D5B] p-4 pr-0 w-full ">
+      <div className="bg-[#171D5B] p-4 pr-0 w-full">
         <div className="bg-white rounded-2xl h-full px-5 sm:px-10">
           <DashboardHeader />
           <div className="py-8">
-            {children}  
+            {children}
           </div>
         </div>
       </div>

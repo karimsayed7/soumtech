@@ -78,7 +78,7 @@ export function AuctionCountdown({
 
           {index < units.length - 1 && (
             <span
-              className={`${ui.colon} self-start -mt-1 font-semibold text-muted-foreground`}
+              className={`${ui.colon} self-start mr-2 -mt-0.5 font-semibold text-muted-foreground`}
             >
               :
             </span>

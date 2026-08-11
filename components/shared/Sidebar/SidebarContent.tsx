@@ -10,11 +10,14 @@ import {
   Landmark,
   Settings,
   LogOut,
+  LayoutDashboard,
+  Users,
+  Building2,
 } from "lucide-react";
 
 import { signOutAction } from "@/features/auth/signOutAction";
 
-const UserNavs = [
+const USER_NAVS = [
   {
     label: "المزادات المسجلة",
     icon: Heart,
@@ -37,6 +40,35 @@ const UserNavs = [
   },
 ];
 
+// عدّل الأيقونات والمسارات دي حسب صفحات الأدمن الفعلية عندك
+const ADMIN_NAVS = [
+  {
+    label: "لوحة التحكم",
+    icon: LayoutDashboard,
+    href: "/adminDashboard",
+  },
+  {
+    label: "المزادات",
+    icon: Landmark,
+    href: "/adminDashboard/auctions",
+  },
+  {
+    label: "الشركات",
+    icon: Building2,
+    href: "/adminDashboard/companies",
+  },
+  {
+    label: "المستخدمين",
+    icon: Users,
+    href: "/adminDashboard/users",
+  },
+  {
+    label: "الإعدادات",
+    icon: Settings,
+    href: "/adminDashboard/settings",
+  },
+];
+
 type SidebarContentProps = {
   collapsed?: boolean;
   onNavigate?: () => void;
@@ -48,8 +80,11 @@ export default function SidebarContent({
 }: SidebarContentProps) {
   const pathname = usePathname();
 
+  const isAdminRoute = pathname.startsWith("/adminDashboard");
+  const navs = isAdminRoute ? ADMIN_NAVS : USER_NAVS;
+
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex flex-col">
       {/* Logo */}
       <Link
         href="/"
@@ -67,7 +102,7 @@ export default function SidebarContent({
 
       {/* Navigation */}
       <nav className="flex flex-col gap-2">
-        {UserNavs.map(({ label, icon: Icon, href }) => {
+        {navs.map(({ label, icon: Icon, href }) => {
           const isActive =
             pathname === href ||
             pathname.startsWith(`${href}/`);
