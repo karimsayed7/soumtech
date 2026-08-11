@@ -1,8 +1,10 @@
-// features/my company/MyCompany.tsx
+
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { getCompanyById } from '@/api/getCompanyById'
-import { Button } from '@/components/ui/button'
+import AddAuctionDialog from './components/AddAuctionDialog'
+// import MyCompanyAuctions from './components/MyCompanyAuctions'
+import MyCompanyAuctions from './components/MyCompanyAuctions'
 
 interface MyCompanyProps {
   companyId: string
@@ -39,9 +41,13 @@ export default async function MyCompany({ companyId }: MyCompanyProps) {
       </div>
 
       <div className="mt-5">
-        <Button className="bg-yellow-500 text-lg cursor-pointer my-6 hover:bg-yellow-600 text-white rounded-lg px-6 py-3">
-          + اضافة مزاد
-        </Button>
+        <AddAuctionDialog companyId={companyId} />
+      </div>
+
+      <div className="mt-8">
+        <MyCompanyAuctions
+          companyId={companyId}
+        />
       </div>
     </div>
   )

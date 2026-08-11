@@ -18,6 +18,8 @@ type FormInputProps<T extends FieldValues> = {
   label: string;
   placeholder?: string;
   type?: string;
+  min?: string;
+  max?: string;
 };
 
 export default function FormInput<T extends FieldValues>({
@@ -26,6 +28,8 @@ export default function FormInput<T extends FieldValues>({
   label,
   placeholder,
   type = "text",
+  min,
+  max,
 }: FormInputProps<T>) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -56,6 +60,8 @@ export default function FormInput<T extends FieldValues>({
               type={inputType}
               placeholder={placeholder}
               aria-invalid={fieldState.invalid}
+              min={min}
+              max={max}
               autoComplete="off"
               className="bg-gray-50 !text-lg h-10 w-full pe-10"
             />

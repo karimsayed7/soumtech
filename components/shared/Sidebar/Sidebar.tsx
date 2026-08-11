@@ -17,14 +17,14 @@ export default function Sidebar() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden min-h-screen w-64 shrink-0 bg-[#171D5B] md:block">
-        <div className="h-screen pr-3 pt-4">
+      <aside className="hidden w-64 shrink-0 bg-[#171D5B] md:block">
+        <div className="sticky top-0 h-screen pr-3 pt-4">
           <SidebarContent />
         </div>
       </aside>
 
       {/* Mobile Sidebar */}
-      <div className="flex h-screen shrink-0 items-start bg-[#171D5B] px-3 pt-12 md:hidden">
+      <div className="flex shrink-0 items-start bg-[#171D5B] px-3 pt-12 md:hidden">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger
             render={
