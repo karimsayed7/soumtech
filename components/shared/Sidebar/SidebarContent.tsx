@@ -47,9 +47,9 @@ const ADMIN_NAVS = [
     href: "/adminDashboard/allAuctions",
   },
   {
-    label: "المزادات",
-    icon: Landmark,
-    href: "/adminDashboard/auctions",
+    label: "قائمة الموظفين",
+    icon: Users,
+    href: "/adminDashboard/employeesList",
   },
   {
     label: "الشركات",
