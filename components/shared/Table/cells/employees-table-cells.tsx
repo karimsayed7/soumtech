@@ -23,9 +23,9 @@ export function renderEmployeeCell(
     case 'اسم الموظف':
       return <span className="font-semibold">{employee.name}</span>
     case 'رقم الجوال':
-      return <span dir="ltr" className="block text-left">{employee.phone}</span>
+      return <span dir="ltr" className="block text-right">{employee.phone}</span>
     case 'البريد الإلكتروني':
-      return <span dir="ltr" className="block text-left text-muted-foreground">{employee.email}</span>
+      return <span dir="ltr" className="block text-right text-muted-foreground">{employee.email}</span>
     case 'تاريخ التسجيل':
       return <span>{format(new Date(employee.registeredAt), 'd MMMM yyyy', { locale: ar })}</span>
     case 'إجراءات':
