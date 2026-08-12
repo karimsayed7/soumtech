@@ -4,7 +4,11 @@ import { getUsers } from '@/api/getUsers'
 // import UsersTable from '@/components/users/users-table'
 import UsersList from '@/features/users list/UsersList'
 
-export default async function UsersPage() {
+interface UsersPageProps {
+  searchParams: Promise<{ page?: string; name?: string }>
+}
+
+export default async function UsersPage({ searchParams }: UsersPageProps) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
@@ -18,7 +22,10 @@ export default async function UsersPage() {
 
   if (profile?.role !== 'admin') redirect('/')
 
-  const users = await getUsers()
+  const { page, name } = await searchParams
+  const currentPage = Number(page) > 0 ? Number(page) : 1
 
-  return <UsersList users={users} />
+  const { users, totalPages } = await getUsers({ page: currentPage, pageSize: 10, name })
+
+  return <UsersList users={users} totalPages={totalPages} currentPage={currentPage} />
 }

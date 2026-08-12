@@ -1,19 +1,24 @@
 "use client";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from "@/components/ui/pagination";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export function Paginations({
-  status,
   currentPage,
   totalPages,
 }: {
-  status?: string; // مش محتاجة تعرف القيم بالظبط، هي بس بتحطها في الـ URL
   currentPage: number;
   totalPages: number;
 }) {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   if (totalPages <= 1) return null;
+
+  function goToPage(p: number) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", String(p));
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  }
 
   return (
     <Pagination>
@@ -24,8 +29,7 @@ export function Paginations({
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                const query = status ? `status=${status}&page=${p}` : `page=${p}`;
-                router.push(`${pathname}?${query}`, { scroll: false });
+                goToPage(p);
               }}
               isActive={p === currentPage}
             >

@@ -1,24 +1,42 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useTransition } from 'react'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import ReusableTable from '@/components/shared/Table/ReusableTable'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
+// import { Paginations } from '@/components/shared/Pagination/Paginations'
+import { Paginations } from '@/components/shared/Paginations'
 import type { UserRow } from '@/api/getUsers'
 // import { USERS_TABLE_HEADERS, renderUserCell } from './users-table-cells'
 import { USERS_TABLE_HEADERS, renderUserCell } from '@/components/shared/Table/cells/users-table-cells'
 
 interface UsersTableProps {
   users: UserRow[]
+  totalPages: number
+  currentPage: number
 }
 
-export default function UsersList({ users }: UsersTableProps) {
-  const [search, setSearch] = useState('')
+export default function UsersList({ users, totalPages, currentPage }: UsersTableProps) {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const [search, setSearch] = useState(searchParams.get('name') ?? '')
+  const [isPending, startTransition] = useTransition()
 
-  const filteredUsers = useMemo(() => {
-    if (!search.trim()) return users
-    return users.filter((u) => (u.full_name ?? '').includes(search.trim()))
-  }, [users, search])
+  function handleSearchChange(value: string) {
+    setSearch(value)
+    startTransition(() => {
+      const params = new URLSearchParams(searchParams.toString())
+      if (value.trim()) {
+        params.set('name', value.trim())
+      } else {
+        params.delete('name')
+      }
+      params.set('page', '1') // البحث بيرجع دايماً للصفحة الأولى
+      router.push(`${pathname}?${params.toString()}`, { scroll: false })
+    })
+  }
 
   return (
     <div dir="rtl">
@@ -29,18 +47,24 @@ export default function UsersList({ users }: UsersTableProps) {
           <Input
             placeholder="ابحث بالاسم..."
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             className="pr-9"
           />
         </div>
       </div>
 
-      <ReusableTable
-        th={USERS_TABLE_HEADERS}
-        rows={filteredUsers}
-        getRowKey={(row) => row.id}
-        renderCell={renderUserCell}
-      />
+      <div className={isPending ? 'opacity-60 transition-opacity' : ''}>
+        <ReusableTable
+          th={USERS_TABLE_HEADERS}
+          rows={users}
+          getRowKey={(row) => row.id}
+          renderCell={renderUserCell}
+        />
+      </div>
+
+      <div className="flex justify-center mt-4">
+        <Paginations currentPage={currentPage} totalPages={totalPages} />
+      </div>
     </div>
   )
 }
