@@ -52,9 +52,9 @@ const ADMIN_NAVS = [
     href: "/adminDashboard/employeesList",
   },
   {
-    label: "الشركات",
+    label: "قائمة الشركات",
     icon: Building2,
-    href: "/adminDashboard/companies",
+    href: "/adminDashboard/companiesList",
   },
   {
     label: "المستخدمين",
