@@ -31,7 +31,7 @@ export default async function AllAuctions({ searchParams }: Props) {
           <AuctionsTable rows={rows} />
         </Suspense>
 
-        <Paginations status={status === 'all' ? undefined : status} currentPage={currentPage} totalPages={totalPages} />
+        <Paginations currentPage={currentPage} totalPages={totalPages} />
       </div>
     </div>
   )
