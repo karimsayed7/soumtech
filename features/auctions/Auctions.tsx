@@ -50,7 +50,7 @@ export default async function Auctions({
                     </div>
                     )}
             
-                <Paginations status={status} currentPage={page} totalPages={totalPages} />
+                <Paginations currentPage={page} totalPages={totalPages} />
             </div>
         </div>
     )
