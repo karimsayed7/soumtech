@@ -1,4 +1,4 @@
-// features/wallet/invoice-cells.tsx
+// components/shared/Table/cells/invoice-cells.tsx
 import type { Database } from '@/lib/supabase/database.types'
 
 type Invoice = Database['public']['Tables']['invoices']['Row']
@@ -29,10 +29,19 @@ export function renderInvoiceCell(header: string, invoice: Invoice) {
       return (
         <span
           className={
-            invoice.transaction_type === 'شحن رصيد' ? 'text-green-600 font-bold text-lg' : 'text-lg text-red-600 font-bold'
+            invoice.transaction_type === 'شحن رصيد'
+              ? 'text-green-600 font-bold text-lg'
+              : 'text-lg text-red-600 font-bold'
           }
         >
-          {invoice.transaction_type}
+          <div className='flex items-center gap-2'>
+            {invoice.transaction_type}
+            {invoice.auction_name && (
+              <span className="block text-lg text-gray-500">
+                ({invoice.auction_name})
+              </span>
+            )}
+          </div>
         </span>
       )
     case 'المبلغ':

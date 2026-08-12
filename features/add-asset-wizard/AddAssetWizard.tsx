@@ -68,8 +68,13 @@ export default function AddAssetWizard({ companyId, auctionId }: { companyId: st
     setStep((prev) => prev - 1)
   }
 
+  const STEP_FIELDS: Record<number, (keyof WizardFormValues)[]> = {
+    1: ['property_name', 'district', 'city', 'street', 'property_type', 'description', 'lat', 'lng'],
+    2: ['boundary_north', 'boundary_south', 'boundary_east', 'boundary_west', 'area_sqm', 'deed_number'],
+    3: ['open_at', 'close_at', 'bid_increment', 'opening_price', 'entry_deposit'],
+  }
   function fillDummyData() {
-    const fieldNames = Object.keys(currentSchema.shape ?? {})
+    const fieldNames = STEP_FIELDS[step] ?? []
     fieldNames.forEach((field) => {
       if (field in DUMMY_DATA) {
         setValue(field as keyof WizardFormValues, DUMMY_DATA[field] as never, {
@@ -81,6 +86,10 @@ export default function AddAssetWizard({ companyId, auctionId }: { companyId: st
   }
 
   async function onStepSubmit(values: Record<string, unknown>) {
+     if (step === 1 && images.length === 0) {
+      setError('يجب رفع صورة واحدة على الأقل للعقار')
+      return
+    }
     const merged = { ...formData, ...values }
     setFormData(merged)
 
@@ -169,12 +178,12 @@ export default function AddAssetWizard({ companyId, auctionId }: { companyId: st
               : 'animate-in fade-in slide-in-from-right-6 duration-300'
           }
         >
-          {step === 1 && <Step1 control={control} images={images} setImages={setImages} />}
+          {step === 1 && <Step1 control={control} images={images} setImages={setImages} imagesError={step === 1 ? error ?? undefined : undefined}/>}
           {step === 2 && <Step2 control={control} />}
           {step === 3 && <Step3 control={control} />}
         </div>
 
-        {error && <p className="text-red-600 text-sm mt-3">{error}</p>}
+        {/* {error && <p className="text-red-600 text-sm mt-3">{error}</p>} */}
 
         <div className="flex items-center justify-between mt-6">
           <div className="flex items-center gap-3">

@@ -1,6 +1,5 @@
 "use client";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from "@/components/ui/pagination";
-import { AuctionStatus } from "@/api/getAuctions";
 import { usePathname, useRouter } from "next/navigation";
 
 export function Paginations({
@@ -8,7 +7,7 @@ export function Paginations({
   currentPage,
   totalPages,
 }: {
-  status?: AuctionStatus;
+  status?: string; // مش محتاجة تعرف القيم بالظبط، هي بس بتحطها في الـ URL
   currentPage: number;
   totalPages: number;
 }) {
@@ -25,9 +24,8 @@ export function Paginations({
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                router.push(`${pathname}?status=${status}&page=${p}`, {
-                  scroll: false,
-                });
+                const query = status ? `status=${status}&page=${p}` : `page=${p}`;
+                router.push(`${pathname}?${query}`, { scroll: false });
               }}
               isActive={p === currentPage}
             >

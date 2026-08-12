@@ -34,22 +34,22 @@ export async function createAuction(
 
   if (!user) return { success: false, error: 'غير مصرح لك بهذا الإجراء' }
 
-  let bannerImageUrl: string | null = null
+  if (!name.trim()) return { success: false, error: 'اسم المزاد مطلوب' }
+  if (!city.trim()) return { success: false, error: 'المدينة مطلوبة' }
+  if (!bannerImage) return { success: false, error: 'صورة المزاد مطلوبة' }
 
-  if (bannerImage) {
-    const ext = bannerImage.name.split('.').pop()
-    const path = `${companyId}/${crypto.randomUUID()}.${ext}`
+  const ext = bannerImage.name.split('.').pop()
+  const path = `${companyId}/${crypto.randomUUID()}.${ext}`
 
-    const { error: uploadError } = await supabase.storage
-      .from('auction-banners')
-      .upload(path, bannerImage)
+  const { error: uploadError } = await supabase.storage
+    .from('auction-banners')
+    .upload(path, bannerImage)
 
-    if (uploadError) {
-      return { success: false, error: 'فشل رفع الصورة' }
-    }
-
-    bannerImageUrl = supabase.storage.from('auction-banners').getPublicUrl(path).data.publicUrl
+  if (uploadError) {
+    return { success: false, error: 'فشل رفع الصورة' }
   }
+
+  const bannerImageUrl = supabase.storage.from('auction-banners').getPublicUrl(path).data.publicUrl
 
   const dealNumber = await getNextDealNumber(supabase)
 
@@ -57,8 +57,8 @@ export async function createAuction(
     .from('auctions')
     .insert({
       company_id: companyId,
-      name,
-      city,
+      name: name.trim(),
+      city: city.trim(),
       banner_image: bannerImageUrl,
       deal_number: dealNumber,
       status: 'waiting_approval',

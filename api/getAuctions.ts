@@ -31,8 +31,6 @@ export async function getAuctions(status: AuctionStatus, page: number) {
     totalPages: Math.max(1, Math.ceil((count ?? 0) / PAGE_SIZE)),
   };
 }
-// api/getAuctions.ts
-// ... الكود الموجود زي ما هو، وضيف الدالة دي تحت getAuctions
 
 export async function getAuctionById(auctionId: string) {
   const supabase = await createClient();

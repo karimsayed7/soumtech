@@ -40,7 +40,7 @@ export default function NavLinks({
           ...(isAdmin
             ? [
                 {
-                  href: "/adminDashboard",
+                  href: "/adminDashboard/allAuctions",
                   label: "لوحة الإدارة",
                 },
               ]
