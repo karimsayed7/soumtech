@@ -59,12 +59,7 @@ const ADMIN_NAVS = [
   {
     label: "المستخدمين",
     icon: Users,
-    href: "/adminDashboard/users",
-  },
-  {
-    label: "الإعدادات",
-    icon: Settings,
-    href: "/adminDashboard/settings",
+    href: "/adminDashboard/usersList",
   },
 ];
 
