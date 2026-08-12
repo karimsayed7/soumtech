@@ -56,6 +56,7 @@ export default function FormInput<T extends FieldValues>({
           <div className="relative w-full">
             <Input
               {...field}
+              value={field.value ?? ''}
               id={name}
               type={inputType}
               placeholder={placeholder}

@@ -9,12 +9,13 @@ import { Button } from '@/components/ui/button'
 import type { WizardFormValues } from '@/schema/auctionWizard'
 
 interface Step1Props {
-  control: Control<WizardFormValues>
-  images: File[]
-  setImages: (files: File[]) => void
-}
+   control: Control<WizardFormValues>
+   images: File[]
+   setImages: (files: File[]) => void
+   imagesError?: string
+ }
 
-export default function Step1({ control, images, setImages }: Step1Props) {
+export default function Step1({ control, images, setImages, imagesError }: Step1Props) {
   const fileRef = useRef<HTMLInputElement>(null)
 
   function handleFilesChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -41,7 +42,7 @@ export default function Step1({ control, images, setImages }: Step1Props) {
         <Button
           type="button"
           onClick={() => fileRef.current?.click()}
-          className="bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg px-4 py-2"
+          className="bg-yellow-500 cursor-pointer hover:bg-yellow-600 text-white rounded-lg px-4 py-2"
         >
           تحميل الملف
         </Button>
@@ -70,6 +71,7 @@ export default function Step1({ control, images, setImages }: Step1Props) {
             ))}
           </div>
         )}
+      {imagesError && <p className="text-red-600 text-sm mt-1">{imagesError}</p>} 
       </div>
 
       <FormInput control={control} name="description" label="وصف العقار" placeholder="ادخل وصف العقار" />

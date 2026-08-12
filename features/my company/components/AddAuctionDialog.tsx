@@ -69,6 +69,21 @@ export default function AddAuctionDialog({ companyId }: { companyId: string }) {
   }
 
   async function handleConfirm() {
+    if (!name.trim()) {
+      setError('اسم المزاد مطلوب')
+      return
+    }
+
+    if (!city.trim()) {
+      setError('المدينة مطلوبة')
+      return
+    }
+
+    if (!selectedFile) {
+      setError('صورة المزاد مطلوبة')
+      return
+    }
+
     setLoading(true)
     setError(null)
 
@@ -127,7 +142,7 @@ export default function AddAuctionDialog({ companyId }: { companyId: string }) {
 
           <div>
             <label className="text-lg font-semibold block mb-1">
-              صورة المزاد
+              صورة المزاد <span className="text-red-600">*</span>
             </label>
 
             {!previewUrl ? (
@@ -168,7 +183,7 @@ export default function AddAuctionDialog({ companyId }: { companyId: string }) {
 
           <Button
             onClick={handleConfirm}
-            disabled={loading || !name.trim() || !city.trim()}
+            disabled={loading || !name.trim() || !city.trim() || !selectedFile}
             className="bg-blue-950 hover:bg-blue-900 text-white text-lg cursor-pointer rounded-lg py-3 disabled:opacity-50"
           >
             {loading ? 'جاري الإنشاء...' : 'تأكيد الإنشاء'}

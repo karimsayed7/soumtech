@@ -40,12 +40,11 @@ const USER_NAVS = [
   },
 ];
 
-// عدّل الأيقونات والمسارات دي حسب صفحات الأدمن الفعلية عندك
 const ADMIN_NAVS = [
   {
-    label: "لوحة التحكم",
+    label: "كل المزادات",
     icon: LayoutDashboard,
-    href: "/adminDashboard",
+    href: "/adminDashboard/allAuctions",
   },
   {
     label: "المزادات",
