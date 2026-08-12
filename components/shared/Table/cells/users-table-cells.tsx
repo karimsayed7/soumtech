@@ -2,7 +2,7 @@ import { format } from 'date-fns'
 import { ar } from 'date-fns/locale'
 import { formatCurrency } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
-import type { UserRow } from '@/api/getUsers'
+import type { UserRow } from '@/lib/api/getUsers'
 
 export const USERS_TABLE_HEADERS = ['اسم الحساب', 'رصيد المحفظة', 'البريد الإلكتروني', 'رقم الهاتف', 'تاريخ التسجيل', 'الحالة']
 

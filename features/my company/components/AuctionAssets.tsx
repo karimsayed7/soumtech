@@ -1,4 +1,4 @@
-import { getAssetsByAuction } from '@/api/getAssetsByAuction'
+import { getAssetsByAuction } from '@/lib/api/getAssetsByAuction'
 import Image from 'next/image'
 
 export default async function AuctionAssets({ auctionId, city }: { auctionId: string; city: string }) {

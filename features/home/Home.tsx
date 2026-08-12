@@ -2,7 +2,7 @@ import Image from "next/image";
 import HomePanner from "./HomePanner";
 import { AuctionCard } from "@/components/shared/Auction/AuctionCard";
 import { AuctionTabsNav } from "@/components/shared/Auction/AuctionTabsNav";
-import { getAuctions, type AuctionStatus } from "@/api/getAuctions";
+import { getAuctions, type AuctionStatus } from "@/lib/api/getAuctions";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/shared/Footer";
@@ -53,7 +53,7 @@ export default async function HomePage({
           </div>
         )}
 
-        {/* <Paginations status={status} currentPage={page} totalPages={totalPages} /> */}
+        {/* <Paginations currentPage={page} totalPages={totalPages} /> */}
       </div>
 
       <div className="flex items-center justify-center mb-10">

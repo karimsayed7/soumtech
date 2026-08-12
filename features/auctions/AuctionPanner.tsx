@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { AuctionStatus } from "../../api/getAuctions";
+import { AuctionStatus } from "@/lib/api/getAuctions";
 
 type Props = {
   totalCount: number;

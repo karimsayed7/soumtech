@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import { getUsers } from '@/api/getUsers'
+import { getUsers } from '@/lib/api/getUsers'
 // import UsersTable from '@/components/users/users-table'
 import UsersList from '@/features/users list/UsersList'
 

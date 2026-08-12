@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
 // import { Paginations } from '@/components/shared/Pagination/Paginations'
 import { Paginations } from '@/components/shared/Paginations'
-import type { UserRow } from '@/api/getUsers'
+import type { UserRow } from '@/lib/api/getUsers'
 // import { USERS_TABLE_HEADERS, renderUserCell } from './users-table-cells'
 import { USERS_TABLE_HEADERS, renderUserCell } from '@/components/shared/Table/cells/users-table-cells'
 

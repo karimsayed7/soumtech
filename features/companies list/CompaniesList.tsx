@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react'
 import ReusableTable from '@/components/shared/Table/ReusableTable'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
-import type { CompanyRow } from '@/api/getCompanies'
+import type { CompanyRow } from '@/lib/api/getCompanies'
 // import { COMPANIES_TABLE_HEADERS, renderCompanyCell } from './companies-table-cells'
 import { COMPANIES_TABLE_HEADERS, renderCompanyCell } from '@/components/shared/Table/cells/companies-table-cells'
 

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { AuctionStatusCard } from "./timer/AuctionStatusCard";
-import type { AuctionListItem } from "@/api/getAuctions";
+import type { AuctionListItem } from "@/lib/api/getAuctions";
 import { MapPin } from "lucide-react";
 import { formatOpenDateTime } from "@/lib/FormatComingDate";
 import { ImageWithFallback } from "../Imagewithfallback";

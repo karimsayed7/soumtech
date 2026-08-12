@@ -1,7 +1,7 @@
 
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
-import { getCompanyById } from '@/api/getCompanyById'
+import { getCompanyById } from '@/lib/api/getCompanyById'
 import AddAuctionDialog from './components/AddAuctionDialog'
 // import MyCompanyAuctions from './components/MyCompanyAuctions'
 import MyCompanyAuctions from './components/MyCompanyAuctions'

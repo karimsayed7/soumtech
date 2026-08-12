@@ -1,5 +1,5 @@
 // features/my company/components/MyCompanyAuctions.tsx
-import { getAuctionsByCompany } from '@/api/getAuctionsByCompany'
+import { getAuctionsByCompany } from '@/lib/api/getAuctionsByCompany'
 import AuctionCard from './AuctionCard'
 import AuctionAssets from './AuctionAssets'
 

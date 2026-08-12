@@ -4,7 +4,7 @@ import { AuctionStatusCard } from '@/components/shared/Auction/timer/AuctionStat
 import { Button } from '@/components/ui/button'
 import type { Database } from '@/lib/supabase/database.types'
 import { ImageWithFallback } from '../../Imagewithfallback'
-import type { AuctionListItem } from '@/api/getAuctions'
+import type { AuctionListItem } from '@/lib/api/getAuctions'
 import { formatOpenDateTime } from '@/lib/FormatComingDate'
 
 function formatCurrency(value: number) {

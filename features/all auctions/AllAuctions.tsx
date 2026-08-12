@@ -3,7 +3,7 @@ import { Paginations } from '@/components/shared/Paginations';
 import AuctionsTable from './components/AuctionsTable';
 import AuctionsFilters from './components/AuctionsFilters';
 import AuctionsBanner from './components/AuctionsBanner';
-import { getAllAuctions, getAuctionCounts } from '@/api/getAllAuctions';
+import { getAllAuctions, getAuctionCounts } from '@/lib/api/getAllAuctions';
 import type { AuctionStatus } from './types'
 
 interface Props {
@@ -30,8 +30,7 @@ export default async function AllAuctions({ searchParams }: Props) {
         <Suspense fallback={<div className="py-10 text-center text-gray-400">جاري التحميل...</div>}>
           <AuctionsTable rows={rows} />
         </Suspense>
-
-        <Paginations status={status === 'all' ? undefined : status} currentPage={currentPage} totalPages={totalPages} />
+        <Paginations currentPage={currentPage} totalPages={totalPages} />
       </div>
     </div>
   )

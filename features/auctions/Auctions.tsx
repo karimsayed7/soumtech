@@ -1,5 +1,5 @@
 import React from 'react'
-import { AuctionStatus, getAuctions } from '../../api/getAuctions';
+import { AuctionStatus, getAuctions } from '@/lib/api/getAuctions';
 import { AuctionTabsNav } from '@/components/shared/Auction/AuctionTabsNav';
 import { Paginations } from '@/components/shared/Paginations';
 import { AuctionCard } from '@/components/shared/Auction/AuctionCard';
@@ -50,7 +50,7 @@ export default async function Auctions({
                     </div>
                     )}
             
-                <Paginations status={status} currentPage={page} totalPages={totalPages} />
+                <Paginations currentPage={page} totalPages={totalPages} />
             </div>
         </div>
     )

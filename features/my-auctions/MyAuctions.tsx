@@ -1,4 +1,4 @@
-import { getMyCompanies } from '@/api/getMyCompanies'
+import { getMyCompanies } from '@/lib/api/getMyCompanies'
 import AddCompanyDialog from './components/AddCompanyDialog'
 import CompanyCard from './components/CompanyCard'
 

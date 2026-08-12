@@ -1,5 +1,5 @@
 // app/settings/page.tsx
-import { getProfile } from '@/api/getProfile'
+import { getProfile } from '@/lib/api/getProfile'
 import Sittings from '@/features/settings/Sittings'
 import { redirect } from 'next/navigation'
 

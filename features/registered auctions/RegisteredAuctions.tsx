@@ -1,4 +1,4 @@
-import { getRegisteredAssets } from '@/api/getRegisteredAssets'
+import { getRegisteredAssets } from '@/lib/api/getRegisteredAssets'
 import AssetCard from '@/components/shared/Asset/AssetCard'
 
 export default async function RegisteredAuctions() {

@@ -1,7 +1,7 @@
 import { AuctionCountdown } from "./components/AuctionCountdown";
 import { UpcomingAuctionCard } from "./components/UpcomingAuctionCard";
 import { EndedAuctionCard } from "./components/EndedAuctionCard";
-import type { AuctionStatus } from "@/api/getAuctions";
+import type { AuctionStatus } from "@/lib/api/getAuctions";
 
 type Props = {
   status: AuctionStatus;

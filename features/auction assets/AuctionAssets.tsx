@@ -2,7 +2,7 @@
 import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import { getAuctionById } from '@/api/getAuctions'
+import { getAuctionById } from '@/lib/api/getAuctions'
 import AuctionAssetsPanner from './components/AuctionAssetsPanner'
 import ReusableTable from '@/components/shared/Table/ReusableTable'
 import { renderAssetCell } from '@/components/shared/Table/cells/asset-cells'

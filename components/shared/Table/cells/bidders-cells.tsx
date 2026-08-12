@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from 'date-fns'
 import { ar } from 'date-fns/locale'
 import { formatCurrency } from '@/lib/utils'
-import type { BidderRow } from '@/api/getAssetBidders'
+import type { BidderRow } from '@/lib/api/getAssetBidders'
 
 export const BIDDERS_TABLE_HEADERS = ['الاسم', 'سعر السوم', 'الوقت']
 

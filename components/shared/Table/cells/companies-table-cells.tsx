@@ -1,4 +1,4 @@
-import type { CompanyRow } from '@/api/getCompanies'
+import type { CompanyRow } from '@/lib/api/getCompanies'
 
 export const COMPANIES_TABLE_HEADERS = ['اسم الشركة', 'اسم صاحب الشركة', 'رقم الجوال', 'البريد الإلكتروني', 'السجل التجاري']
 

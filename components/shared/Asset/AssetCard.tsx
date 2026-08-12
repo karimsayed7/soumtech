@@ -5,7 +5,7 @@ import { formatOpenDateTime } from '@/lib/FormatComingDate'
 import { ImageWithFallback } from '../Imagewithfallback'
 import { MapPin } from 'lucide-react';
 import Image from 'next/image'
-import type { AuctionListItem } from '@/api/getAuctions'
+import type { AuctionListItem } from '@/lib/api/getAuctions'
 import type { Database } from '@/lib/supabase/database.types'
 import { cn } from '@/lib/utils'
 
