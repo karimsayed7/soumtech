@@ -10,17 +10,17 @@ A full-stack real estate auction platform inspired by [soum.tech](https://soum.t
 
 ## 📸 Screenshots
 
-### Auction Bids
-![Auction Bids](./screenshots/img1.jpg)
+### Auctions
+![Auctions](./screenshots/img11.jpg)
 
-### Auction Details
-![Auction Details](./screenshots/img4.jpg)
+### Auction Bids
+![Auction Bids](./screenshots/img12.jpg)
 
 ### User Dashboard/ my Wallet
-![My Wallet](./screenshots/img2.jpg)
+![My Wallet](./screenshots/img13.jpg)
 
 ### Forms
-![My Wallet](./screenshots/img3.jpg)
+![Forms](./screenshots/img14.jpg)
 ---
 
 ## ✨ Key Features
